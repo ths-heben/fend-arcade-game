@@ -2,16 +2,23 @@
 const player_start_x = 200;
 const player_start_y = 380;
 
+const player_character = 'images/char-boy.png';
+
 const enemy_start_x = -200; // Use -200 for smooth looking
 const max_field_x = 600;  // Use 600 not 400 for smooth looking
 
 const speeds = [430, 400, 280, 320, 370, 290, 320, 340];
 
+const positioning_y = [60, 140, 220];
+
+let score = 0;
+let level = 0;
+const lives = 3;
+
 // Enemies our player must avoid
-var Enemy = function(y) {
+let Enemy = function(y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
     this.x = enemy_start_x;
     this.y = y;
     //const speeds = [speed];
@@ -49,13 +56,23 @@ class Player {
     };
 
     render() {
-        ctx.drawImage(Resources.get('images/char-boy.png'), this.x, this.y);
+        ctx.drawImage(Resources.get(player_character), this.x, this.y);
     };
 
     update() {
         // Jump into water and win the game
         if (player.y <= 0) {
-            alert('You got it!!');
+            score++;
+
+            // Level up at score of 5
+            if (score % 5 === 0) {
+                level++;
+                // New level new enemy
+                allEnemies.push(new Enemy(positioning_y[Math.floor(Math.random() * positioning_y.length)]));
+                $('#level').text(level);
+            }
+
+            $('#score').text(score);
 
             // Back to start
             resetPlayerPosition();
@@ -83,7 +100,7 @@ class Player {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-var allEnemies = [
+let allEnemies = [
     new Enemy(60),
     new Enemy(140),
     new Enemy(220)
@@ -96,7 +113,7 @@ let player = new Player(player_start_x, player_start_y);
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
+    let allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
@@ -109,8 +126,15 @@ document.addEventListener('keyup', function(e) {
 function checkCollisions() {
     for (let enemy of allEnemies) {
         if (enemy.x >= player.x - 60 && enemy.x <= player.x + 60 && enemy.y === player.y) {
-            alert('oh yeah they matched');
-            resetPlayerPosition();
+            $('#lives img').first().remove();
+
+            let currentLives = $('#lives img').length;
+            console.log('Current lives: ' + currentLives);
+            if (currentLives === 0) {
+                gameOver();
+            }
+            else
+                resetPlayerPosition();
         }
     }
 }
@@ -119,3 +143,17 @@ function resetPlayerPosition() {
     player.x = player_start_x;
     player.y = player_start_y;
 }
+
+for (let i = 0; i < lives; i++) {
+    $('#lives').append('<img src="' + player_character + '" height="80px">');
+}
+
+function gameOver() {
+    resetPlayerPosition();
+    $('.restart-overlay').toggle();
+    $('#scoreResult').append(score);
+    $('#restart-button').click(function() {
+        window.location.reload(true);
+    });
+}
+

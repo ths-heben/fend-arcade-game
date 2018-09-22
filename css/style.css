@@ -2,3 +2,68 @@ body {
   font-family: 'Lora', serif;
   text-align: center;
 }
+
+h2 {
+  margin: 0;
+}
+
+h3 {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+div#lives {
+  min-height: 80px;
+  text-center: center;
+  width: 100%;
+}
+
+.menu-overlay, .restart-overlay {
+  position: absolute;
+  background-color: #ffffffcf;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.menu-overlay div, .restart-overlay div {
+  position: relative;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-selection {
+  width: 500px;
+  height: 200px;
+  background-color: tomato;
+  border: solid 6px #b94b36;
+  border-radius: 5px;
+  margin-top: 25%;
+}
+
+.menu-selection h1 {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 38px;
+}
+
+.restart-overlay {
+  display: none;
+}
+
+button {
+  height: 45px;
+  width: 160px;
+  border: solid 0px #fffafa;
+  background-color: #ffff93;
+  border-radius: 10px;
+}
