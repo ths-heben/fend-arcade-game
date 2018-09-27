@@ -1,6 +1,8 @@
 # FEND Arcade Game
 A Udacity project mastering JS, HTML and CSS
 
+![Game screenshot](images/fend_game_screenshot.png)
+
 ## General
 The goal of the game is to reach the water avoiding a collision with bugs.
 
