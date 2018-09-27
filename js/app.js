@@ -77,7 +77,7 @@ class Player {
             $('#score').text(score);
 
             // Back to start
-            resetPlayerPosition();
+            this.resetPosition();
         }
     };
 
@@ -97,6 +97,11 @@ class Player {
 
         console.log('x = ' + this.x);
         console.log('y = ' + this.y);
+    };
+
+    resetPosition() {
+        this.x = player_start_x;
+        this.y = player_start_y;
     };
 }
 
@@ -136,14 +141,9 @@ function checkCollisions() {
                 gameOver();
             }
             else
-                resetPlayerPosition();
+                player.resetPosition();
         }
     }
-}
-
-function resetPlayerPosition() {
-    player.x = player_start_x;
-    player.y = player_start_y;
 }
 
 for (let i = 0; i < lives; i++) {
@@ -151,7 +151,7 @@ for (let i = 0; i < lives; i++) {
 }
 
 function gameOver() {
-    resetPlayerPosition();
+    player.resetPosition();
     $('.restart-overlay').toggle();
     $('#scoreResult').append(score);
     $('#restart-button').click(function() {
