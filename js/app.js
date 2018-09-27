@@ -15,6 +15,8 @@ let score = 0;
 let level = 0;
 const lives = 3;
 
+// TODO: Add Superclass Character for Enemy and Player
+
 // Enemies our player must avoid
 let Enemy = function(y) {
     // Variables applied to each of our instances go here,
@@ -61,7 +63,7 @@ class Player {
 
     update() {
         // Jump into water and win the game
-        if (player.y <= 0) {
+        if (this.y <= 0) {
             score++;
 
             // Level up at score of 5
